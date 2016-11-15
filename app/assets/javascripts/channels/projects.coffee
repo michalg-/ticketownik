@@ -1,13 +1,9 @@
 App.projects = App.cable.subscriptions.create 'ProjectsChannel',
 
-  connected: ->
-    console.log 'connected'
-    setTimeout =>
-      @followProjects()
-      $(document).on 'turbolinks:load', -> App.projects.followProjects()
-
   received: (data) ->
-    console.log data
+    if $('body[js-class-name="Views.Projects.Index"] #projects').length > 0
+      $.ajax
+        url: Routes.projects_path({format: 'json'})
+        success: (data) ->
+          Vue.set(projects, 'projects', data)
 
-  followProjects: ->
-    perform 'follow'

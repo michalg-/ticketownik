@@ -1,0 +1,14 @@
+#login_form
+  .container
+    .section
+      .row
+        .col.s6.offset-s3
+          %h5 Login
+          %label{for: 'email'} Email
+          = text_field_tag :email, '', 'v-model': 'user.email'
+          %br
+          %label{for: 'password'} Password
+          = password_field_tag :password, '', 'v-model': 'user.password'
+          %span.red-text {{ errors.password }}
+          %br
+          = button_tag 'Login', class: 'waves-effect waves-light btn', '@click': 'createSession'

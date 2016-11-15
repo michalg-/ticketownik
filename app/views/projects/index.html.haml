@@ -1,15 +1,18 @@
-%h1 Projects
+= render 'project_row'
+.container
+  .section
+    %h5 Projects
+    %p#new_project
+      = button_tag 'Add new project', class: 'waves-effect waves-light btn', '@click': 'showNewForm'
 
-#projects
-  %table
-    %thead
-      %th Id
-      %th Name
-      %th Description
-    %tbody
-      %tr{'v-for': 'project in projects'}
-        %td {{ project.id }}
-        %td {{ project.name }}
-        %td {{ project.description }}
+  #projects
+    %table
+      %thead
+        %th Id
+        %th Name
+        %th Description
+        %th
+      %tbody
+        %tr{is: 'project-row', 'v-for': 'project in projects', ':project': :project}
 
 

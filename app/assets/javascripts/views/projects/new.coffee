@@ -5,7 +5,7 @@ class Views.Projects.New extends Views.ApplicationView
   render: ->
     super()
     project = new Vue
-      el: '#new_project'
+      el: '#new_project_form'
       data:
         project:
           name: ''
@@ -21,7 +21,8 @@ class Views.Projects.New extends Views.ApplicationView
               project:
                 that.project
             success: (data) ->
-              Turbolinks.visit(Routes.projects_path())
+              $('#modal').modal('close')
+
             error: (data) ->
               that.errors = data.responseJSON.errors
 

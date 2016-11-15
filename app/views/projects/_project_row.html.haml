@@ -1,0 +1,6 @@
+%script#project-row{type: 'text/x-template'}
+  %tr
+    %td {{ project.id }}
+    %td {{ project.name }}
+    %td {{ project.description }}
+    %td= button_tag 'Delete', '@click': 'removeProject', class: 'waves-effect waves-light btn red'

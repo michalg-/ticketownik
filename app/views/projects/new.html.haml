@@ -1,9 +1,0 @@
-#new_project
-  = text_field_tag :name, '', 'v-model': 'project.name'
-  %span {{ errors.name }}
-  %br
-  %br
-  = text_area_tag :description, '', 'v-model': 'project.description'
-  %span {{ errors.description }}
-  %br
-  = submit_tag 'Save', '@click': 'createProject'

@@ -3,9 +3,11 @@
 #= require turbolinks
 #= require vue
 #= require js-routes
+#= require materialize-sprockets
 
 #= require_tree ./views
 #= require_tree ./widgets
+#= require_tree ./channels
 
 
 $(document).on 'turbolinks:load', ->
@@ -15,6 +17,8 @@ $(document).on 'turbolinks:load', ->
   catch error
     new Views.ApplicationView()
   window.applicationView.render()
+
+  $('#modal').modal()
 
 $(document).on 'turbolinks:before-render', ->
   window.applicationView.cleanup()
