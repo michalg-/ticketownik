@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  skip_before_filter :authorize, only: [:new, :create]
 
   def new
     render :form, locals: {
@@ -18,7 +19,7 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    render json: {}, status: 200
+    redirect_to login_path
   end
 
   private
