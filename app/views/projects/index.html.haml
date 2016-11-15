@@ -1,0 +1,15 @@
+%h1 Projects
+
+#projects
+  %table
+    %thead
+      %th Id
+      %th Name
+      %th Description
+    %tbody
+      %tr{'v-for': 'project in projects'}
+        %td {{ project.id }}
+        %td {{ project.name }}
+        %td {{ project.description }}
+
+
