@@ -5,7 +5,7 @@ class Views.Sessions.New extends Views.ApplicationView
   render: ->
     super()
     login_form = new Vue
-      el: '#login_form'
+      el: '#login-form'
       data:
         user:
           email: ''

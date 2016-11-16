@@ -35,7 +35,7 @@ class Views.Projects.Index extends Views.ApplicationView
               view = new Views.Projects.Edit
               view.render(that.project)
 
-    window.projects = new Vue
+    new Vue
       el: '#projects'
       data: store.state
       created: ->
@@ -52,8 +52,8 @@ class Views.Projects.Index extends Views.ApplicationView
         count: ->
           this.projects.length
 
-    new_project = new Vue
-      el: '#new_project'
+    new Vue
+      el: '#new-project'
       methods:
         showNewForm: ->
           $.ajax

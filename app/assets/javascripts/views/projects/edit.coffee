@@ -4,8 +4,8 @@ class Views.Projects.Edit extends Views.ApplicationView
 
   render: (project) ->
     super()
-    project = new Vue
-      el: '#project_form'
+    new Vue
+      el: '#project-form'
       data:
         project:
           id: project.id

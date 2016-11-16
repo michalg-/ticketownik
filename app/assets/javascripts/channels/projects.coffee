@@ -7,7 +7,7 @@ App.projects = App.cable.subscriptions.create 'ProjectsChannel',
           $.ajax
             url: Routes.projects_path({format: 'json'})
             success: (data) ->
-              Vue.set(projects, 'projects', data)
+              Vue.set(store.state, 'projects', data)
       when 'destroy'
         project = JSON.parse(data.project)
         i = 0
