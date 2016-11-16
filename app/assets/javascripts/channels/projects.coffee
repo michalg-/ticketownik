@@ -11,9 +11,10 @@ App.projects = App.cable.subscriptions.create 'ProjectsChannel',
       when 'destroy'
         project = JSON.parse(data.project)
         i = 0
-        len = projects.projects.length
-        while i < len
-          if projects.projects[i].id == project.id
-            projects.projects.splice(i, 1)
+        while i < store.state.projects.length
+          if store.state.projects[i].id == project.id
+            store.state.projects.splice(i, 1)
+            return
           i++
+
 

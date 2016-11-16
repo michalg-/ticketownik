@@ -5,14 +5,16 @@ class Views.Projects.Index extends Views.ApplicationView
   render: ->
     super()
 
-    store =
+    window.store = new Vuex.Store(
       state:
         projects: []
+    )
 
     Vue.component 'project-row',
       template: '#project-row',
       props:
         project: Object
+        index: Number
       data: ->
         errors: {}
       methods:
@@ -35,21 +37,20 @@ class Views.Projects.Index extends Views.ApplicationView
 
     window.projects = new Vue
       el: '#projects'
-      data:
-        privateState: {}
-        sharedState: store.state
+      data: store.state
       created: ->
         that = this
         $.ajax
           url: Routes.projects_path({'format': 'json'})
           success: (data) ->
-            that.sharedState.projects = data
+            Vue.set(store.state, 'projects', data)
 
     new Vue
       el: '#projects-info'
-      data:
-        projects_count: store.state.projects.length
-
+      data: store.state
+      computed:
+        count: ->
+          this.projects.length
 
     new_project = new Vue
       el: '#new_project'

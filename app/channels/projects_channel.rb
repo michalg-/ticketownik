@@ -4,4 +4,8 @@ class ProjectsChannel < ApplicationCable::Channel
     stream_from 'projects'
   end
 
+  def unsubscribed
+    stop_all_streams
+  end
+
 end

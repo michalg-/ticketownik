@@ -1,18 +1,18 @@
 = render 'project_row'
 .container
   .section
-    %h5#projects-info Projects {{ projects_count }}
     %p#new_project
       = button_tag 'Add new project', class: 'waves-effect waves-light btn light-blue darken-1', '@click': 'showNewForm'
+    %h5#projects-info Projects {{ count }}
 
   #projects
     %table
       %thead
-        %th Id
+        %th #
         %th Name
         %th Description
         %th
       %tbody
-        %tr{is: 'project-row', 'v-for': 'project in sharedState.projects', ':project': :project}
+        %tr{is: 'project-row', 'v-for': '(project, index) in projects', ':project': :project, ':index': :index}
 
 

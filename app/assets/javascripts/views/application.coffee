@@ -1,4 +1,4 @@
-#rcamlet prepare section
+#prepare section by https://github.com/rafcamlet
 window.prepare = (path, target = window) ->
   classes = path.split('.')
   target = target[classes.shift()] ||= {}
