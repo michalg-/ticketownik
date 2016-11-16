@@ -16,7 +16,8 @@ class Views.Projects.New extends Views.ApplicationView
           that = this
           $.ajax
             method: 'POST'
-            url: Routes.projects_path({format: 'json'})
+            url: Routes.api_projects_path()
+            dataType: 'json'
             data:
               project:
                 that.project

@@ -2,7 +2,7 @@
   %tr
     %td {{ index + 1 }}
     %td
-      .waves-effect.waves-light.btn.green.darken-1 {{ project.name }}
+      .waves-effect.waves-light.btn.green.darken-1{'@click': 'showProject'} {{ project.name }}
     %td {{ project.description }}
     %td= button_tag 'Edit', '@click': 'editProject', class: 'waves-effect waves-light btn teal darken-1'
     %td= button_tag 'Delete', '@click': 'removeProject', class: 'waves-effect waves-light btn red'

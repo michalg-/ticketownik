@@ -1,0 +1,6 @@
+.col.s4
+  %ul.collection.with-header
+    %li.collection-header
+      %h5= label
+
+    %li.collection-item{is: 'ticket-row', 'v-for': "ticket in #{tickets}", ':ticket': :ticket}

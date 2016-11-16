@@ -5,7 +5,7 @@ App.projects = App.cable.subscriptions.create 'ProjectsChannel',
       when 'create', 'update'
         if $('body[js-class-name="Views.Projects.Index"] #projects').length > 0
           $.ajax
-            url: Routes.projects_path({format: 'json'})
+            url: Routes.api_projects_path({format: 'json'})
             success: (data) ->
               Vue.set(store.state, 'projects', data)
       when 'destroy'

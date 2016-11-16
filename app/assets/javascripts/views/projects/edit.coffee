@@ -17,7 +17,8 @@ class Views.Projects.Edit extends Views.ApplicationView
           that = this
           $.ajax
             method: 'PATCH'
-            url: Routes.project_path({id: that.project.id, format: 'json'})
+            url: Routes.api_project_path({id: that.project.id})
+            dataType: 'json'
             data:
               project:
                 that.project

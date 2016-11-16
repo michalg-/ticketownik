@@ -1,0 +1,16 @@
+%script#ticket-row{type: 'text/x-template'}
+  %div{'@click': 'showDescription'}
+    .title
+      %span.grey-text Title:
+      {{ ticket.title }}
+    %template{'v-if':'show_description'}
+      %h6
+        %span.grey-text Requested:
+        {{ ticket.created_at }}
+      %h6
+        %span.grey-text Requester:
+      %h6
+        %span.grey-text Description:
+        %br
+        {{ ticket.description }}
+

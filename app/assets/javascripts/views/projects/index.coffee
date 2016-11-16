@@ -23,17 +23,20 @@ class Views.Projects.Index extends Views.ApplicationView
           $.ajax
             data:
               project: that.project
-            url: Routes.project_path({id: that.project.id, 'format': 'json'})
+            url: Routes.api_project_path({id: that.project.id})
+            dataType: 'json'
             method: 'DELETE'
         editProject: ->
           that = this
           $.ajax
-            url: Routes.edit_project_path({id: that.project.id, 'format': 'json'})
+            url: Routes.edit_project_path({id: that.project.id})
             success: (data) ->
               $('#modal').html($(data))
               $('#modal').modal('open')
               view = new Views.Projects.Edit
               view.render(that.project)
+        showProject: ->
+          Turbolinks.visit(Routes.project_path({id: this.project.id}))
 
     new Vue
       el: '#projects'
@@ -41,7 +44,8 @@ class Views.Projects.Index extends Views.ApplicationView
       created: ->
         that = this
         $.ajax
-          url: Routes.projects_path({'format': 'json'})
+          url: Routes.api_projects_path()
+          dataType: 'json'
           success: (data) ->
             Vue.set(store.state, 'projects', data)
 
@@ -67,4 +71,4 @@ class Views.Projects.Index extends Views.ApplicationView
 
   cleanup: ->
     super()
-    window.projects = undefined
+    window.store = undefined

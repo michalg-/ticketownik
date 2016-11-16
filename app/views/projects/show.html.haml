@@ -1,0 +1,21 @@
+#project{'project-id': project.id}
+  .row
+    .col.s4
+      .card.blue-grey.darken-1
+        .card-content.white-text
+          %span.card-title {{ project.name }}
+          %p
+            {{ project.description }}
+
+
+= render 'projects/tickets/ticket_row'
+.row
+  #done-tickets
+    = render 'projects/tickets/show', tickets: 'ticketsStatusDone', label: 'Done'
+
+  #waiting-tickets
+    = render 'projects/tickets/show', tickets: 'ticketsStatusWaiting', label: 'Waiting'
+
+  #icebox-tickets
+    = render 'projects/tickets/show', tickets: 'ticketsStatusIcebox', label: 'Icebox'
+

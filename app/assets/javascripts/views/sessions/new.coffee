@@ -16,7 +16,8 @@ class Views.Sessions.New extends Views.ApplicationView
           that = this
           $.ajax
             method: 'POST'
-            url: Routes.sessions_path({format: 'json'})
+            url: Routes.api_sessions_path()
+            dataType: 'json'
             data:
               user:
                 that.user

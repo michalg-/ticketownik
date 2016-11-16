@@ -5,12 +5,13 @@
     = csrf_meta_tags
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    %link{:href => "https://fonts.googleapis.com/icon?family=Material+Icons", :rel => "stylesheet"}/
+
   %body{ 'js-class-name': js_class_name }
     - if current_user
       %nav
         .nav-wrapper.light-blue.darken-4
           .col.s12
-            %a.brand-logo.right{href: '#'} Ticketownik
             %ul#nav-mobile.left.hide-on-med-and-down
               %li= link_to 'Projects', projects_path
               %li= link_to 'Logout', logout_path, method: :delete
