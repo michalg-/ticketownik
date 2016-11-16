@@ -23,9 +23,22 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def edit
+    render partial: 'projects/form'
+  end
+
+  def update
+    if project.update(project_params)
+      Projects::UpdateJob.perform_later(project)
+      render json: project
+    else
+      render json: { errors: project.errors.messages }, status: 422
+    end
+  end
+
   def destroy
     if project.destroy
-      Projects::DestroyJob.perform_later
+      Projects::DestroyJob.perform_later(project.attributes.to_json)
       render json: project
     else
       render json: {}, status: 422

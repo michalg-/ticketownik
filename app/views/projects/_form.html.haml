@@ -1,13 +1,13 @@
-#new_project_form
+#project_form
   .modal-content
     %h4 Project
     %p
       %label{for: 'name'} Name
       = text_field_tag :name, '', 'v-model': 'project.name'
       %span.red-text {{ errors.name }}
-      .input-field
-        %label{for: 'description'} Description
-        = text_area_tag :description, '', 'v-model': 'project.description', class: 'materialize-textarea'
-        %span.red-text {{ errors.description }}
+      %br
+      %label{for: 'description'} Description
+      = text_field_tag :description, '', 'v-model': 'project.description'
+      %span.red-text {{ errors.description }}
   .modal-footer
-    %a.waves-effect.waves-green.btn-flat{'@click': 'createProject'} Save
+    %a.waves-effect.waves-green.btn-flat{'@click': 'submitProject'} Save

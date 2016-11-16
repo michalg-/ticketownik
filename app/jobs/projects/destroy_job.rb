@@ -1,7 +1,10 @@
 class Projects::DestroyJob < ApplicationJob
 
-  def perform
-    ActionCable.server.broadcast('projects', {})
+  def perform(project)
+    ActionCable.server.broadcast('projects',
+      project: project,
+      action: :destroy
+    )
   end
 
 end

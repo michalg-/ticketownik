@@ -2,6 +2,7 @@
 #= require jquery_ujs
 #= require turbolinks
 #= require vue
+#= require vuex
 #= require js-routes
 #= require materialize-sprockets
 
@@ -17,8 +18,6 @@ $(document).on 'turbolinks:load', ->
   catch error
     new Views.ApplicationView()
   window.applicationView.render()
-
-  $('#modal').modal()
 
 $(document).on 'turbolinks:before-render', ->
   window.applicationView.cleanup()

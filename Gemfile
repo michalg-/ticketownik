@@ -33,11 +33,11 @@ gem 'materialize-sass'
 #haml compiler
 gem 'haml'
 
-#vue assets pipeline
-gem 'vuejs-rails'
-
 #js routes helpers
 gem 'js-routes'
+
+#js package manager
+gem 'bower-rails', '~> 0.11.0'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

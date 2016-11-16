@@ -1,0 +1,13 @@
+{
+  "name": "vuex",
+  "_cacheHeaders": {
+    "ETag": "\"999658503433bcf5a7c5ff1cf926fd6316854b9d\"",
+    "Content-Length": "4053",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:999658503",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/vuejs/vuex/dev/dist/vuex.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/vuejs/vuex/dev/dist/vuex.js"
+}

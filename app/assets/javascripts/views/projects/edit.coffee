@@ -1,22 +1,23 @@
 prepare 'Views.Projects'
 
-class Views.Projects.New extends Views.ApplicationView
+class Views.Projects.Edit extends Views.ApplicationView
 
-  render: ->
+  render: (project) ->
     super()
     project = new Vue
       el: '#project_form'
       data:
         project:
-          name: ''
-          description: ''
+          id: project.id
+          name: project.name
+          description: project.description
         errors: {}
       methods:
         submitProject: ->
           that = this
           $.ajax
-            method: 'POST'
-            url: Routes.projects_path({format: 'json'})
+            method: 'PATCH'
+            url: Routes.project_path({id: that.project.id, format: 'json'})
             data:
               project:
                 that.project

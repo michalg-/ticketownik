@@ -11,6 +11,7 @@ window.Views ||= {}
 
 class Views.ApplicationView
   render: ->
+    $('#modal').modal()
 
   cleanup: ->
 

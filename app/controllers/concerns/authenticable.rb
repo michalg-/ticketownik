@@ -1,7 +1,7 @@
 module Authenticable
   extend ActiveSupport::Concern
   included do
-    before_filter :authorize
+    before_action :authorize
 
     def current_user
       @current_user ||= User.find_by(id: session[:user_id])

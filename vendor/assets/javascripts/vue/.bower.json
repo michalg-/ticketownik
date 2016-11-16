@@ -1,0 +1,13 @@
+{
+  "name": "vue",
+  "_cacheHeaders": {
+    "ETag": "\"2f5575f4c20f5f40b48ba7573085780cb4283edd\"",
+    "Content-Length": "56033",
+    "Content-Type": "text/plain; charset=utf-8"
+  },
+  "_release": "e-tag:2f5575f4c",
+  "main": "index.js",
+  "_source": "https://raw.githubusercontent.com/vuejs/vue/dev/dist/vue.js",
+  "_target": "*",
+  "_originalSource": "https://raw.githubusercontent.com/vuejs/vue/dev/dist/vue.js"
+}

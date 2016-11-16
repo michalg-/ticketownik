@@ -1,9 +1,9 @@
-class Projects::CreateJob < ApplicationJob
+class Projects::UpdateJob < ApplicationJob
 
   def perform(project)
     ActionCable.server.broadcast('projects',
       project: project,
-      action: :create
+      action: :update
     )
   end
 
