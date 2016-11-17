@@ -8,10 +8,11 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :destroy]
 
   namespace :api do
-    resources :projects, except: [:new, :edit]
+    resources :projects, except: [:new, :edit] do
+      resources :tickets, controller: 'projects/tickets'
+    end
     resources :sessions, only: [:create]
   end
-
 
   #user-friendly sessions paths
   get '/login' => 'sessions#new'
