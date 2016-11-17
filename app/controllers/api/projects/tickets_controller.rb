@@ -5,7 +5,7 @@ module Api::Projects
     end
 
     def create
-      ticket = project.tickets.new(ticket_params)
+      ticket = project.tickets.new(ticket_params.merge(creator_id: current_user.id))
       if ticket.save
         ::Tickets::CreateJob.perform_later(ticket, current_user)
         render json: ticket
@@ -44,7 +44,7 @@ module Api::Projects
 
     def ticket_params
       params.require(:ticket).permit(:title, :description, :priority).
-        merge(creator_id: current_user.id, status: :waiting)
+        merge(status: :waiting)
     end
   end
 end

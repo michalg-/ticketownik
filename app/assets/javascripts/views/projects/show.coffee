@@ -53,6 +53,7 @@ class Views.Projects.Show extends Views.ApplicationView
               comment: that.comment
             success: (data) ->
               that.comment.content = ''
+              that.errors.content = ''
 
             error: (data) ->
               that.errors = data.responseJSON.errors

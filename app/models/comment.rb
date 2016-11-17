@@ -5,4 +5,6 @@ class Comment < ApplicationRecord
 
   delegate :name, to: :author, prefix: true
 
+  validates :content, presence: true
+
 end

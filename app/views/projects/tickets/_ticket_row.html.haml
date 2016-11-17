@@ -1,6 +1,6 @@
 %script#ticket-row{type: 'text/x-template'}
   %li.collection-item{'v-bind:class': 'ticket.color'}
-    .title{'@click': 'showDescription'}
+    .title{'@click': 'showDescription', style: 'cursor: pointer;'}
       {{ ticket.title }}
     %template{'v-if':'show_description'}
       %h6
@@ -20,11 +20,13 @@
             %span.white-text {{ comment.content }}
             .right-align {{ comment.created_at }} // {{ comment.author.name }}
         .input-field
-          = text_area_tag :comment, '', 'v-model': 'comment.content', class: 'materialize-textarea'
-          %label{for: 'description'} Comment
+          = text_area_tag :content, '', 'v-model': 'comment.content', 'v-bind:class': '{invalid: errors.content}', class: 'materialize-textarea'
+          %label{for: 'content'} Comment
+          %span.red-text {{ errors.content }}
         %p.center-align
           %a.waves-effect.waves-light.btn.teal{'@click': 'submitComment'} Comment
       .divider
       %p.center-align
         %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
         %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove
+
