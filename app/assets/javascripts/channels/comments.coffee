@@ -1,4 +1,4 @@
-App.tickets = App.cable.subscriptions.create 'TicketsChannel',
+App.comments = App.cable.subscriptions.create 'CommentsChannel',
 
   connected: ->
     that = this
@@ -13,15 +13,10 @@ App.tickets = App.cable.subscriptions.create 'TicketsChannel',
     , 1000
 
   received: (data) ->
-    ticket = JSON.parse(data.ticket)
+    comment = JSON.parse(data.comment)
     switch data.action
       when 'create'
-        store.state.tickets.unshift(ticket)
-      when 'update'
-        store.state.tickets.splice(@getIndexOfObject(ticket), 1, ticket)
-      when 'destroy'
-        store.state.tickets.splice(@getIndexOfObject(ticket), 1)
-
+        store.state.tickets[@getIndexOfObject(comment)].comments.push(comment)
 
   followCurrentProject: ->
     console.log 'paczam'
@@ -33,6 +28,6 @@ App.tickets = App.cable.subscriptions.create 'TicketsChannel',
   getIndexOfObject: (object) ->
     i = 0
     while i < store.state.tickets.length
-      if store.state.tickets[i].id == object.id
+      if store.state.tickets[i].id == object.ticket_id
         return i
       i++

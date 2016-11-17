@@ -9,12 +9,11 @@ App.projects = App.cable.subscriptions.create 'ProjectsChannel',
             success: (data) ->
               Vue.set(store.state, 'projects', data)
       when 'destroy'
-        project = JSON.parse(data.project)
-        i = 0
-        while i < store.state.projects.length
-          if store.state.projects[i].id == project.id
-            store.state.projects.splice(i, 1)
-            return
-          i++
+        store.state.projects.splice(@getIndexOfObject(JSON.parse(data.project)), 1)
 
-
+  getIndexOfObject: (object) ->
+    i = 0
+    while i < store.state.projects.length
+      if store.state.projects[i].id == object.id
+        return i
+      i++

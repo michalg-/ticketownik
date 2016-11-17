@@ -11,7 +11,7 @@ class Views.Projects.Show extends Views.ApplicationView
         tickets: []
     )
     $.ajax
-      url: Routes.project_tickets_path({project_id: project.getAttribute('project-id')})
+      url: Routes.api_project_tickets_path({project_id: projectId()})
       dataType: 'json'
       success: (data) ->
         Vue.set(store.state, 'tickets', data)
@@ -23,17 +23,57 @@ class Views.Projects.Show extends Views.ApplicationView
       data: ->
         show_description: false
         errors: {}
+        comment:
+          content: ''
+
       methods:
+        removeTicket: ->
+          $.ajax
+            url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            dataType: 'json'
+            method: 'DELETE'
+        showEditForm: ->
+          that = this
+          $.ajax
+            url: Routes.edit_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            success: (data) ->
+              $('#modal').html($(data))
+              $('#modal').modal('open')
+              new Views.Tickets.Edit().render(that.ticket)
         showDescription: ->
-          return if this.ticket.description.length <= 0
           this.show_description = !this.show_description
+
+        submitComment: ->
+          that = this
+          $.ajax
+            method: 'POST'
+            url: Routes.api_project_ticket_comments_path({project_id: projectId(), ticket_id: this.ticket.id, _options: true})
+            dataType: 'json'
+            data:
+              comment: that.comment
+            success: (data) ->
+              that.comment.content = ''
+
+            error: (data) ->
+              that.errors = data.responseJSON.errors
+
+    new Vue
+      el: '#add-ticket'
+      methods:
+        showNewForm: ->
+          $.ajax
+            url: Routes.new_project_ticket_path({project_id: projectId()})
+            success: (data) ->
+              $('#modal').html($(data))
+              $('#modal').modal('open')
+              new Views.Tickets.New().render()
 
     new Vue
       el: '#project'
       data: store.state
       computed:
         id: ->
-          document.getElementById('project').getAttribute('project-id')
+          projectId()
       created: ->
         that = this
         $.ajax
@@ -50,22 +90,25 @@ class Views.Projects.Show extends Views.ApplicationView
           store.state.tickets.filter((ticket) -> ticket.status == 'done')
 
     new Vue
-      el: '#waiting-tickets'
+      el: '#current-tickets'
       data: store.state
       computed:
         ticketsStatusWaiting: ->
-          store.state.tickets.filter((ticket) -> ticket.status == 'waiting')
+          store.state.tickets.filter((ticket) -> ticket.status == 'current')
 
     new Vue
-      el: '#icebox-tickets'
+      el: '#waiting-tickets'
       data: store.state
       computed:
         ticketsStatusIcebox: ->
-          store.state.tickets.filter((ticket) -> ticket.status == 'icebox')
+          store.state.tickets.filter((ticket) -> ticket.status == 'waiting')
 
 
 
   cleanup: ->
     super()
     window.store = undefined
+
+  projectId = ->
+    document.getElementById('project').getAttribute('project-id')
 

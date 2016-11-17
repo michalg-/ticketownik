@@ -7,7 +7,7 @@ module Api
     def create
       project = Project.new(project_params)
       if project.save
-        Projects::CreateJob.perform_later(project)
+        ::Projects::CreateJob.perform_later(project)
         render json: project
       else
         render json: { errors: project.errors.messages }, status: 422
@@ -16,7 +16,7 @@ module Api
 
     def update
       if project.update(project_params)
-        Projects::UpdateJob.perform_later(project)
+        ::Projects::UpdateJob.perform_later(project)
         render json: project
       else
         render json: { errors: project.errors.messages }, status: 422
@@ -25,7 +25,7 @@ module Api
 
     def destroy
       if project.destroy
-        Projects::DestroyJob.perform_later(project.attributes.to_json)
+        ::Projects::DestroyJob.perform_later(project.to_json)
         render json: project
       else
         render json: {}, status: 422

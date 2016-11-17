@@ -8,7 +8,7 @@
 
 #= require_tree ./views
 #= require_tree ./widgets
-#= require_tree ./channels
+#= require ./channels/index
 
 
 $(document).on 'turbolinks:load', ->

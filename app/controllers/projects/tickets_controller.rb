@@ -1,11 +1,14 @@
 class Projects::TicketsController < ApplicationController
 
   def index
-    respond_to do |format|
-      format.json do
-        render json: project.tickets
-      end
-    end
+  end
+
+  def new
+    render partial: 'projects/tickets/form'
+  end
+
+  def edit
+    render partial: 'projects/tickets/form'
   end
 
   private

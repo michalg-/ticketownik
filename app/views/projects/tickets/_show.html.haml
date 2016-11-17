@@ -3,4 +3,4 @@
     %li.collection-header
       %h5= label
 
-    %li.collection-item{is: 'ticket-row', 'v-for': "ticket in #{tickets}", ':ticket': :ticket}
+    %div{is: 'ticket-row', 'v-for': "ticket in #{tickets}", ':ticket': :ticket}

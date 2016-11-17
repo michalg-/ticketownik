@@ -9,7 +9,9 @@ Rails.application.routes.draw do
 
   namespace :api do
     resources :projects, except: [:new, :edit] do
-      resources :tickets, controller: 'projects/tickets'
+      resources :tickets, controller: 'projects/tickets' do
+        resources :comments, controller: 'projects/tickets/comments'
+      end
     end
     resources :sessions, only: [:create]
   end

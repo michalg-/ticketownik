@@ -1,7 +1,6 @@
 %script#ticket-row{type: 'text/x-template'}
-  %div{'@click': 'showDescription'}
-    .title
-      %span.grey-text Title:
+  %li.collection-item{'v-bind:class': 'ticket.color'}
+    .title{'@click': 'showDescription'}
       {{ ticket.title }}
     %template{'v-if':'show_description'}
       %h6
@@ -9,9 +8,23 @@
         {{ ticket.created_at }}
       %h6
         %span.grey-text Requester:
-        {{ ticket.creator.name }}
+        .chip {{ ticket.creator.name }}
       %h6
         %span.grey-text Description:
-        %br
+      %p
         {{ ticket.description }}
-
+      .divider
+      #comment-form
+        %div{'v-for': 'comment in ticket.comments'}
+          .card-panel.teal
+            %span.white-text {{ comment.content }}
+            .right-align {{ comment.created_at }} // {{ comment.author.name }}
+        .input-field
+          = text_area_tag :comment, '', 'v-model': 'comment.content', class: 'materialize-textarea'
+          %label{for: 'description'} Comment
+        %p.center-align
+          %a.waves-effect.waves-light.btn.teal{'@click': 'submitComment'} Comment
+      .divider
+      %p.center-align
+        %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
+        %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove

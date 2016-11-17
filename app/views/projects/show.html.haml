@@ -13,9 +13,16 @@
   #done-tickets
     = render 'projects/tickets/show', tickets: 'ticketsStatusDone', label: 'Done'
 
+  #current-tickets
+    = render 'projects/tickets/show', tickets: 'ticketsStatusWaiting', label: 'Current'
+
   #waiting-tickets
-    = render 'projects/tickets/show', tickets: 'ticketsStatusWaiting', label: 'Waiting'
+    = render 'projects/tickets/show', tickets: 'ticketsStatusIcebox', label: 'Waiting'
 
-  #icebox-tickets
-    = render 'projects/tickets/show', tickets: 'ticketsStatusIcebox', label: 'Icebox'
-
+.fixed-action-btn.horizontal#add-ticket
+  %a.btn-floating.btn-large.red
+    %i.large.material-icons add
+  %ul
+    %li
+      %a.btn-floating.red{'@click': 'showNewForm'}
+        %i.material-icons track_changes

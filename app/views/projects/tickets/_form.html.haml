@@ -1,0 +1,26 @@
+#ticket-form
+  .modal-content
+    %h4 Ticket
+    %p
+      .input-field
+        = text_area_tag :title, '', 'v-model': 'ticket.title', class: 'materialize-textarea'
+        %label{for: 'title'} Name
+        %span.red-text {{ errors.title }}
+      %br
+      .input-field
+        = text_area_tag :description, '', 'v-model': 'ticket.description', class: 'materialize-textarea'
+        %label{for: 'description'} Description
+        %span.red-text {{ errors.description }}
+    .center-align
+      %p
+        %input#normal.with-gap{value: '1', name: 'prior', type: 'radio', 'v-model': 'ticket.priority'}/
+        %label{for: 'normal'} Normal
+      %p
+        %input#privileged.with-gap{value: '2', name: 'prior', type: 'radio', 'v-model': 'ticket.priority'}/
+        %label{for: 'privileged'} Privileged
+      %p
+        %input#urgent.with-gap{value: '3', name: 'prior', type: 'radio', 'v-model': 'ticket.priority'}/
+        %label{for: 'urgent'} Urgent
+
+  .modal-footer
+    %a.waves-effect.waves-green.btn-flat{'@click': 'submitTicket'} Save
