@@ -5,6 +5,8 @@ App.notifications = App.cable.subscriptions.create 'NotificationsChannel',
     @proceedConnect(that)
     $(document).on 'turbolinks:load', ->
       that.proceedConnect(that)
+    $(document).on 'turbolinks:request-start', ->
+      that.perform 'unfollow'
 
   proceedConnect: (that) ->
     setTimeout =>

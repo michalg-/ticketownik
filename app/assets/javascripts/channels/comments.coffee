@@ -5,6 +5,9 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
     @proceedConnect(that)
     $(document).on 'turbolinks:load', ->
       that.proceedConnect(that)
+    $(document).on 'turbolinks:request-start', ->
+      console.log 'unfollowuję'
+      that.perform 'unfollow'
 
   proceedConnect: (that) ->
     console.log 'łączę'

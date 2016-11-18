@@ -5,6 +5,8 @@ App.tickets = App.cable.subscriptions.create 'TicketsChannel',
     @proceedConnect(that)
     $(document).on 'turbolinks:load', ->
       that.proceedConnect(that)
+    $(document).on 'turbolinks:request-start', ->
+      that.perform 'unfollow'
 
   proceedConnect: (that) ->
     console.log 'łączę'
