@@ -16,9 +16,20 @@
       .divider
       #comment-form
         %div{'v-for': 'comment in ticket.comments'}
-          .card-panel.teal
-            %span.white-text {{ comment.content }}
-            .right-align {{ comment.created_at }} // {{ comment.author.name }}
+          .card.teal
+            .card-content
+              %p
+                %span.white-text {{ comment.content }}
+              %br
+              %p.right-align
+                .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'} {{ comment.author.name }}
+                %template{'v-if':'comment.editable'}
+                  %i.material-icons.right.activator.white-text.m-l-0.l-h-32.c-pointer more_vert
+            %template{'v-if':'comment.editable'}
+              .card-reveal
+                .card-title
+                  %i.material-icons.right close
+                %a.btn.red.waves-effect.waves-light{'data-badge-caption': ' ', '@click': 'removeComment(comment)'} remove
         .input-field
           = text_area_tag :content, '', 'v-model': 'comment.content', 'v-bind:class': '{invalid: errors.content}', class: 'materialize-textarea'
           %label{for: 'content'} Comment
@@ -29,4 +40,3 @@
       %p.center-align
         %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
         %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove
-

@@ -32,6 +32,11 @@ class Views.Projects.Show extends Views.ApplicationView
             url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
             dataType: 'json'
             method: 'DELETE'
+        removeComment: (comment) ->
+          $.ajax
+            url: Routes.api_project_ticket_comment_path({project_id: projectId(), ticket_id: this.ticket.id, id: comment.id, _options: true})
+            dataType: 'json'
+            method: 'DELETE'
         showEditForm: ->
           that = this
           $.ajax
@@ -41,7 +46,11 @@ class Views.Projects.Show extends Views.ApplicationView
               $('#modal').modal('open')
               new Views.Tickets.Edit().render(that.ticket)
         showDescription: ->
+
           this.show_description = !this.show_description
+          setTimeout(->
+            $('.tooltipped', this.$el).tooltip()
+          , 500)
 
         submitComment: ->
           that = this
@@ -54,7 +63,6 @@ class Views.Projects.Show extends Views.ApplicationView
             success: (data) ->
               that.comment.content = ''
               that.errors.content = ''
-
             error: (data) ->
               that.errors = data.responseJSON.errors
 
@@ -103,8 +111,6 @@ class Views.Projects.Show extends Views.ApplicationView
       computed:
         ticketsStatusIcebox: ->
           store.state.tickets.filter((ticket) -> ticket.status == 'waiting')
-
-
 
   cleanup: ->
     super()

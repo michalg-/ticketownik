@@ -12,7 +12,7 @@ class TicketSerializer < ActiveModel::Serializer
 
   def comments
     object.comments.
-      map{ |comment| CommentSerializer.new(comment) }
+      map{ |comment| CommentSerializer.new(comment, scope: scope ) }
   end
 
   def created_at

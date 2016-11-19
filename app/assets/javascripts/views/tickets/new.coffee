@@ -24,7 +24,6 @@ class Views.Tickets.New extends Views.ApplicationView
                 that.ticket
             success: (data) ->
               $('#modal').modal('close')
-
             error: (data) ->
               that.errors = data.responseJSON.errors
 

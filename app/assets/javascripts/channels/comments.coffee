@@ -19,7 +19,21 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
     comment = JSON.parse(data.comment)
     switch data.action
       when 'create'
-        store.state.tickets[@getIndexOfObject(comment)].comments.push(comment)
+        that = this
+        $.ajax
+          url: Routes.api_project_ticket_comment_path
+            project_id: document.getElementById('project').getAttribute('project-id')
+            ticket_id: comment.ticket_id
+            id: comment.id
+            _options: true
+          success: (data) ->
+            store.state.tickets[that.getIndexOfObject(comment.ticket_id, store.state.tickets)]
+              .comments.push(data)
+      when 'destroy'
+        ticket_index = @getIndexOfObject(comment.ticket_id, store.state.tickets)
+        store.state.tickets[ticket_index].comments
+          .splice(@getIndexOfObject(comment.id, store.state.tickets[ticket_index].comments), 1)
+
 
   followCurrentProject: ->
     console.log 'paczam'
@@ -28,9 +42,9 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
     else
       @perform 'unfollow'
 
-  getIndexOfObject: (object) ->
+  getIndexOfObject: (object_id, array) ->
     i = 0
-    while i < store.state.tickets.length
-      if store.state.tickets[i].id == object.ticket_id
+    while i < array.length
+      if array[i].id == object_id
         return i
       i++
