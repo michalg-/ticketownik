@@ -43,8 +43,9 @@ module Api::Projects
     end
 
     def ticket_params
-      params.require(:ticket).permit(:title, :description, :priority).
-        merge(status: :waiting)
+      params.require(:ticket).permit(:title, :description, :priority, :status).tap do |params|
+        params[:status] = :waiting if params[:status].blank?
+      end
     end
   end
 end

@@ -21,6 +21,10 @@
     .title{'@click': 'showDescription', style: 'cursor: pointer;'}
       {{ ticket.title }}
     %template{'v-if':'show_description'}
+      %p.center-align
+        %a.btn.green.waves-effect.waves-light{'@click': 'startTicket'}
+          %i.material-icons play_arrow
+
       %h6
         %span.grey-text Requested:
         {{ ticket.created_at }}

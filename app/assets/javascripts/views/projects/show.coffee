@@ -76,7 +76,13 @@ class Views.Projects.Show extends Views.ApplicationView
           setTimeout(->
             $('.tooltipped', this.$el).tooltip()
           , 500)
-
+        startTicket: ->
+          $.ajax
+            url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            method: 'PATCH'
+            data:
+              ticket:
+                status: 'current'
         submitComment: ->
           that = this
           $.ajax
