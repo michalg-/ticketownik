@@ -29,6 +29,9 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
           success: (data) ->
             store.state.tickets[that.getIndexOfObject(comment.ticket_id, store.state.tickets)]
               .comments.push(data)
+            setTimeout ->
+              $('.tooltipped:not(div[data-tooltip-id])').tooltip()
+            , 500
       when 'destroy'
         ticket_index = @getIndexOfObject(comment.ticket_id, store.state.tickets)
         store.state.tickets[ticket_index].comments

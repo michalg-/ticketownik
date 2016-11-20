@@ -4,9 +4,9 @@ class TicketSerializer < ActiveModel::Serializer
 
   def color
     case object.priority
-    when 1 then ''
-    when 2 then 'orange lighten-5'
-    when 3 then 'red lighten-5'
+    when 1 then '#fff'
+    when 2 then '#ff9800'
+    when 3 then '#f44336'
     end
   end
 

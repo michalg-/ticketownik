@@ -1,11 +1,11 @@
 %script#comment-row{type: 'text/x-template'}
-  .card.teal
+  .card.teal.comment
     .card-content
       %p
         %span.white-text {{ comment.content }}
       %br
       %p.right-align
-        .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'}
+        .chip.tooltipped.author{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'}
           %img{':src': 'author.photo.assets.chip'}
           {{ author.name }}
         %template{'v-if':'comment.editable'}
@@ -17,7 +17,7 @@
         %a.btn.red.waves-effect.waves-light{'data-badge-caption': ' ', '@click': 'removeComment(comment)'} remove
 
 %script#ticket-row{type: 'text/x-template'}
-  %li.collection-item{'v-bind:class': 'ticket.color'}
+  %li.collection-item.ticket{'v-bind:style': 'itemStyle', 'v-bind:class': 'itemClass'}
     .title{'@click': 'showDescription', style: 'cursor: pointer;'}
       {{ ticket.title }}
     %template{'v-if':'show_description'}
@@ -35,8 +35,10 @@
         {{ ticket.description }}
       .divider
       %p.center-align
-        %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
-        %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove
+        %a.waves-effect.waves-light.btn{'@click': 'showEditForm'}
+          %i.material-icons mode_edit
+        %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'}
+          %i.material-icons delete_forever
       .divider
       %div{is: 'comment-row', 'v-for': "comment in ticket.comments", ':comment': :comment}
 

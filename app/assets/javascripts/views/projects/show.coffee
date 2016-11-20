@@ -53,6 +53,10 @@ class Views.Projects.Show extends Views.ApplicationView
         creator: ->
           that = this
           store.state.users.filter((creator) -> creator.id == that.ticket.creator_id)[0]
+        itemStyle: ->
+          'border-left': "6px solid #{this.ticket.color}"
+        itemClass: ->
+          'z-depth-3': this.show_description
       methods:
         removeTicket: ->
           $.ajax

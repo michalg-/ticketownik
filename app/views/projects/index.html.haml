@@ -1,8 +1,6 @@
 = render 'project_row'
 .container
   .section
-    %p#new-project
-      = button_tag 'Add new project', class: 'waves-effect waves-light btn light-blue darken-1', '@click': 'showNewForm'
     %h5#projects-info Projects {{ count }}
 
   #projects
@@ -16,3 +14,6 @@
         %tr{is: 'project-row', 'v-for': '(project, index) in projects', ':project': :project, ':index': :index}
 
 
+.fixed-action-btn.horizontal#new-project
+  %a.btn-floating.btn-large.red{'@click': 'showNewForm'}
+    %i.large.material-icons note_add

@@ -7,13 +7,16 @@
 %nav
   .nav-wrapper.light-blue.darken-4
     .col.s12
-      %ul#nav-mobile.left
+      %ul#nav-mobile.left.hide-on-med-and-down
         %li
           = link_to 'Projects', projects_path
         %li
           %a.dropdown-button{'data-activates': 'dropdown-profile', href: '#!'}
             Account
             %i.material-icons.right arrow_drop_down
+      %ul.right.hide-on-med-and-down
+        %li
+          = yield :nav_menu_right_side
 
 
 
