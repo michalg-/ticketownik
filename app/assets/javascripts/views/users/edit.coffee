@@ -24,7 +24,6 @@ class Views.Users.Edit extends Views.ApplicationView
             contentType: false
             data: formData
             success: (data) ->
-              store.state.users.splice(that.getIndexOfObject(data.id), 1, data)
               $('#modal').modal('close')
             error: (data) ->
               that.errors = data.responseJSON.errors
@@ -33,10 +32,3 @@ class Views.Users.Edit extends Views.ApplicationView
 
 
   cleanup: ->
-
-  getIndexOfObject: (object) ->
-    i = 0
-    while i < store.state.users.length
-      if store.state.users[i].id == object.id
-        return i
-      i++

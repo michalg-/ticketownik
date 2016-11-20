@@ -23,8 +23,19 @@ class Views.Projects.Show extends Views.ApplicationView
       success: (data) ->
         Vue.set(store.state, 'tickets', data)
 
+    CommentRow = Vue.component 'comment-row',
+      template: '#comment-row'
+      props:
+        comment: Object
+      computed:
+        author: ->
+          that = this
+          store.state.users.filter((author) -> author.id == that.comment.author_id)[0]
+
     Vue.component 'ticket-row',
       template: '#ticket-row',
+      components:
+        comment_row: CommentRow
       props:
         ticket: Object
       data: ->
@@ -56,7 +67,6 @@ class Views.Projects.Show extends Views.ApplicationView
               $('#modal').modal('open')
               new Views.Tickets.Edit().render(that.ticket)
         showDescription: ->
-
           this.show_description = !this.show_description
           setTimeout(->
             $('.tooltipped', this.$el).tooltip()

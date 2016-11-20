@@ -8,6 +8,7 @@ module Api
       begin
         User::Update.new(user_params.merge(id: current_user.id)).process
         UserNotificationJob.perform_later('User profile updated', current_user)
+        Users::UpdateJob.perform_later(current_user)
         render json: current_user.reload
       rescue ActiveRecord::Rollback
         render json: { errors: current_user.errors.messages }, status: 422
@@ -17,7 +18,7 @@ module Api
     private
 
     def user_params
-      params.require(:user).permit(:name, :photo, :remove_photo)
+      params.require(:user).permit(:name, :photo)
     end
   end
 end

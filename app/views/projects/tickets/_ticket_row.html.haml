@@ -1,3 +1,21 @@
+%script#comment-row{type: 'text/x-template'}
+  .card.teal
+    .card-content
+      %p
+        %span.white-text {{ comment.content }}
+      %br
+      %p.right-align
+        .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'}
+          %img{':src': 'author.photo.assets.chip'}
+          {{ author.name }}
+        %template{'v-if':'comment.editable'}
+          %i.material-icons.right.activator.white-text.m-l-0.l-h-32.c-pointer more_vert
+    %template{'v-if':'comment.editable'}
+      .card-reveal
+        .card-title
+          %i.material-icons.right close
+        %a.btn.red.waves-effect.waves-light{'data-badge-caption': ' ', '@click': 'removeComment(comment)'} remove
+
 %script#ticket-row{type: 'text/x-template'}
   %li.collection-item{'v-bind:class': 'ticket.color'}
     .title{'@click': 'showDescription', style: 'cursor: pointer;'}
@@ -20,24 +38,9 @@
         %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
         %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove
       .divider
+      %div{is: 'comment-row', 'v-for': "comment in ticket.comments", ':comment': :comment}
+
       #comment-form
-        %div{'v-for': 'comment in ticket.comments'}
-          .card.teal
-            .card-content
-              %p
-                %span.white-text {{ comment.content }}
-              %br
-              %p.right-align
-                .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'}
-                  %img{':src': 'comment.author.photo.assets.chip'}
-                  {{ comment.author.name }}
-                %template{'v-if':'comment.editable'}
-                  %i.material-icons.right.activator.white-text.m-l-0.l-h-32.c-pointer more_vert
-            %template{'v-if':'comment.editable'}
-              .card-reveal
-                .card-title
-                  %i.material-icons.right close
-                %a.btn.red.waves-effect.waves-light{'data-badge-caption': ' ', '@click': 'removeComment(comment)'} remove
         .input-field
           = text_area_tag :content, '', 'v-model': 'comment.content', 'v-bind:class': '{invalid: errors.content}', class: 'materialize-textarea'
           %label{for: 'content'} Comment
