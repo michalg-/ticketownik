@@ -31,6 +31,12 @@ class Views.Projects.Show extends Views.ApplicationView
         author: ->
           that = this
           store.state.users.filter((author) -> author.id == that.comment.author_id)[0]
+      methods:
+        removeComment: ->
+          $.ajax
+            url: Routes.api_project_ticket_comment_path({project_id: projectId(), ticket_id: this.comment.ticket_id, id: this.comment.id, _options: true})
+            dataType: 'json'
+            method: 'DELETE'
 
     Vue.component 'ticket-row',
       template: '#ticket-row',
@@ -51,11 +57,6 @@ class Views.Projects.Show extends Views.ApplicationView
         removeTicket: ->
           $.ajax
             url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
-            dataType: 'json'
-            method: 'DELETE'
-        removeComment: (comment) ->
-          $.ajax
-            url: Routes.api_project_ticket_comment_path({project_id: projectId(), ticket_id: this.ticket.id, id: comment.id, _options: true})
             dataType: 'json'
             method: 'DELETE'
         showEditForm: ->
