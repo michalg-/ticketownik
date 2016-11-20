@@ -5,6 +5,8 @@ class Ticket < ApplicationRecord
 
   has_many :comments
 
+  validates :title, presence: true
+
   delegate :name, to: :creator, prefix: true
 
 end

@@ -6,10 +6,7 @@ class CommentSerializer < ActiveModel::Serializer
   end
 
   def author
-    {
-      id: object.author_id,
-      name: object.author_name
-    }
+    UserSerializer.new(object.author)
   end
 
   def editable

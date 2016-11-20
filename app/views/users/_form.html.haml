@@ -1,0 +1,33 @@
+#user-form
+  .modal-content
+    %h4 Profile
+    .row
+      .col.s5
+        .card
+          .card-image
+            %img{':src': 'user.photo.assets.big'}
+          .card-content.center-align
+            %a.waves-effect.waves-green.btn.activator{href: 'javascript:void(0)'} Change photo
+          .card-reveal
+            %span.card-title.grey-text.text-darken-4
+              %i.material-icons.right close
+            %p
+              %br
+              .file-field.input-field.center-align
+                .btn{style: 'float: none;'}
+                  %span Choose photo
+                  = file_field_tag :photo, id: 'user-photo'
+                %br
+                .file-path-wrapper
+                  %input.file-path.validate{:type => "text"}/
+      .col.s1
+      .col.s6
+        %p
+          %label{for: 'email'} Email
+          = text_field_tag :email, '', 'v-model': 'user.email', disabled: true
+          %br
+          %label{for: 'name'} Name
+          = text_field_tag :name, '', 'v-model': 'user.name'
+          %span.red-text {{ errors.name }}
+  .modal-footer
+    %a.waves-effect.waves-green.btn-flat{'@click': 'submitUser'} Save

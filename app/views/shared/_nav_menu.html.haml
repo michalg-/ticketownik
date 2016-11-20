@@ -1,0 +1,20 @@
+%ul#dropdown-profile.dropdown-content
+  %li
+    %span#user-profile-link{'@click': 'showUserForm'} Profile
+  %li.divider
+  %li
+    = link_to 'Logout', logout_path, method: :delete
+%nav
+  .nav-wrapper.light-blue.darken-4
+    .col.s12
+      %ul#nav-mobile.left.hide-on-med-and-down
+        %li
+          = link_to 'Projects', projects_path
+        %li
+          %a.dropdown-button{'data-activates': 'dropdown-profile', href: '#!'}
+            Account
+            %i.material-icons.right arrow_drop_down
+
+
+
+

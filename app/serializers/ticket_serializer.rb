@@ -1,5 +1,5 @@
 class TicketSerializer < ActiveModel::Serializer
-  attributes :id, :title, :description, :created_at, :creator, :status, :color,
+  attributes :id, :title, :description, :created_at, :creator_id, :status, :color,
     :priority, :comments
 
   def color
@@ -11,19 +11,12 @@ class TicketSerializer < ActiveModel::Serializer
   end
 
   def comments
-    object.comments.
+    object.comments.preload(:author).
       map{ |comment| CommentSerializer.new(comment, scope: scope ) }
   end
 
   def created_at
     I18n.l(object.created_at)
-  end
-
-  def creator
-    {
-      id: object.creator_id,
-      name: object.creator_name
-    }
   end
 
   def priority

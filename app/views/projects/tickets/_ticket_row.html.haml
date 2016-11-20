@@ -8,11 +8,17 @@
         {{ ticket.created_at }}
       %h6
         %span.grey-text Requester:
-        .chip {{ ticket.creator.name }}
+        .chip
+          %img{':src': 'creator.photo.assets.chip'}
+          {{ creator.name }}
       %h6
         %span.grey-text Description:
       %p
         {{ ticket.description }}
+      .divider
+      %p.center-align
+        %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
+        %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove
       .divider
       #comment-form
         %div{'v-for': 'comment in ticket.comments'}
@@ -22,7 +28,9 @@
                 %span.white-text {{ comment.content }}
               %br
               %p.right-align
-                .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'} {{ comment.author.name }}
+                .chip.tooltipped{'data-position':'right', 'data-delay':'50', ':data-tooltip': 'comment.created_at'}
+                  %img{':src': 'comment.author.photo.assets.chip'}
+                  {{ comment.author.name }}
                 %template{'v-if':'comment.editable'}
                   %i.material-icons.right.activator.white-text.m-l-0.l-h-32.c-pointer more_vert
             %template{'v-if':'comment.editable'}
@@ -36,7 +44,3 @@
           %span.red-text {{ errors.content }}
         %p.center-align
           %a.waves-effect.waves-light.btn.teal{'@click': 'submitComment'} Comment
-      .divider
-      %p.center-align
-        %a.waves-effect.waves-light.btn{'@click': 'showEditForm'} Edit
-        %a.waves-effect.waves-light.btn.red{'@click': 'removeTicket'} Remove

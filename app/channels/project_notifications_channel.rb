@@ -1,4 +1,4 @@
-class NotificationsChannel < ApplicationCable::Channel
+class ProjectNotificationsChannel < ApplicationCable::Channel
 
   def follow(data)
     stop_all_streams

@@ -3,7 +3,6 @@ prepare 'Views.Tickets'
 class Views.Tickets.New extends Views.ApplicationView
 
   render: ->
-    super()
     new Vue
       el: '#ticket-form'
       data:
@@ -28,5 +27,4 @@ class Views.Tickets.New extends Views.ApplicationView
               that.errors = data.responseJSON.errors
 
   cleanup: ->
-    super()
 

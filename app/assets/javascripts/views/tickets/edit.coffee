@@ -3,7 +3,6 @@ prepare 'Views.Tickets'
 class Views.Tickets.Edit extends Views.ApplicationView
 
   render: (ticket) ->
-    super()
     new Vue
       el: '#ticket-form'
       data:
@@ -29,5 +28,4 @@ class Views.Tickets.Edit extends Views.ApplicationView
 
     $('#modal .input-field label').addClass('active')
   cleanup: ->
-    super()
 

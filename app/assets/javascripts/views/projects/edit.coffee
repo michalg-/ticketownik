@@ -3,7 +3,6 @@ prepare 'Views.Projects'
 class Views.Projects.Edit extends Views.ApplicationView
 
   render: (project) ->
-    super()
     new Vue
       el: '#project-form'
       data:
@@ -29,5 +28,4 @@ class Views.Projects.Edit extends Views.ApplicationView
               that.errors = data.responseJSON.errors
 
   cleanup: ->
-    super()
 

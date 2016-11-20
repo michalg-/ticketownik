@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161117221101) do
+ActiveRecord::Schema.define(version: 20161119193900) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20161117221101) do
     t.integer  "priority",    default: 1
     t.index ["creator_id"], name: "index_tickets_on_creator_id", using: :btree
     t.index ["project_id"], name: "index_tickets_on_project_id", using: :btree
+  end
+
+  create_table "user_photos", force: :cascade do |t|
+    t.text     "asset_data"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_photos_on_user_id", using: :btree
   end
 
   create_table "users", force: :cascade do |t|

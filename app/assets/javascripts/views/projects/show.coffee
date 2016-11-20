@@ -9,7 +9,14 @@ class Views.Projects.Show extends Views.ApplicationView
       state:
         project: {}
         tickets: []
+        users: []
     )
+    $.ajax
+      url: Routes.api_project_users_path({project_id: projectId()})
+      dataType: 'json'
+      success: (data) ->
+        Vue.set(store.state, 'users', data)
+
     $.ajax
       url: Routes.api_project_tickets_path({project_id: projectId()})
       dataType: 'json'
@@ -25,7 +32,10 @@ class Views.Projects.Show extends Views.ApplicationView
         errors: {}
         comment:
           content: ''
-
+      computed:
+        creator: ->
+          that = this
+          store.state.users.filter((creator) -> creator.id == that.ticket.creator_id)[0]
       methods:
         removeTicket: ->
           $.ajax

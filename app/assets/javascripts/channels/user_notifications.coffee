@@ -1,4 +1,4 @@
-App.notifications = App.cable.subscriptions.create 'NotificationsChannel',
+App.notifications = App.cable.subscriptions.create 'UserNotificationsChannel',
 
   connected: ->
     that = this
@@ -10,15 +10,9 @@ App.notifications = App.cable.subscriptions.create 'NotificationsChannel',
 
   proceedConnect: (that) ->
     setTimeout =>
-      that.followCurrentProject()
+      that.perform 'follow'
     , 1000
 
   received: (data) ->
+    console.log data
     Materialize.toast(data, 2000)
-
-
-  followCurrentProject: ->
-    if projectId = document.getElementById('project')
-      @perform 'follow', project_id: projectId.getAttribute('project-id')
-    else
-      @perform 'unfollow'

@@ -1,13 +1,13 @@
 #= require jquery
 #= require jquery_ujs
-#= require turbolinks
 #= require vue
 #= require vuex
+#= require turbolinks
 #= require js-routes
 #= require materialize-sprockets
 
-#= require_tree ./views
 #= require_tree ./widgets
+#= require_tree ./views
 #= require ./channels/index
 
 
