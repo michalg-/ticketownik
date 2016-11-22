@@ -2,15 +2,17 @@ module Api::Projects::Tickets
   class CommentsController < ApplicationController
 
     def index
-      render json: ticket.comments
+      authorize(comments = ticket.comments)
+      render json: comments
     end
 
     def show
+      authorize(comment)
       render json: comment
     end
 
     def create
-      comment = ticket.comments.new(comment_params)
+      authorize(comment = ticket.comments.new(comment_params))
       if comment.save
         Comments::CreateJob.perform_later(ticket, comment, current_user)
         render json: comment
@@ -20,6 +22,7 @@ module Api::Projects::Tickets
     end
 
     def destroy
+      authorize(comment)
       if comment.destroy
         Comments::DestroyJob.perform_later(ticket, comment.to_json, current_user)
         render json: comment
@@ -39,7 +42,7 @@ module Api::Projects::Tickets
     end
 
     def comment
-      @comment ||= ticket.comments.find(params[:id])
+      @comment ||= policy_scope(ticket.comments).find(params[:id])
     end
 
     def comment_params

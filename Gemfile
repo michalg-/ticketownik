@@ -49,6 +49,9 @@ gem 'shrine'
 gem 'image_processing'
 gem 'mini_magick', '>= 4.3.5'
 
+#resources authorization
+gem 'pundit'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
@@ -67,6 +70,13 @@ group :development do
   gem 'capistrano-passenger'
   #info about n+1 queries
   gem 'bullet'
+end
+
+group :test do
+  gem 'rspec-rails'
+
+  #factorize rails model classes
+  gem 'factory_girl_rails'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

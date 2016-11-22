@@ -6,7 +6,7 @@ class CommentSerializer < ActiveModel::Serializer
   end
 
   def editable
-    scope.id == object.author_id
+    CommentPolicy.new(scope, object).update?
   end
 
 end
