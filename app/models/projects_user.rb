@@ -5,4 +5,6 @@ class ProjectsUser < ApplicationRecord
 
   validates :user_id, uniqueness: { scope: :project_id }
 
+  scope :assigned, -> { where(state: 'assigned') }
+
 end
