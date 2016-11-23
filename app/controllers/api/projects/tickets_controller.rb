@@ -1,7 +1,8 @@
 module Api::Projects
   class TicketsController < ApplicationController
     def index
-      render json: project.tickets.preload(:creator).order(created_at: :desc)
+      render json: project.tickets.
+        order(created_at: :desc)
     end
 
     def create

@@ -10,18 +10,32 @@ class Views.Projects.Show extends Views.ApplicationView
         project: {}
         tickets: []
         users: []
+        users_to_remove: []
     )
-    $.ajax
-      url: Routes.api_project_users_path({project_id: projectId()})
-      dataType: 'json'
-      success: (data) ->
-        Vue.set(store.state, 'users', data)
+    new Vue
+      el: '#project'
+      data: store.state
+      computed:
+        id: ->
+          projectId()
+      created: ->
+        that = this
+        $.ajax
+          url: Routes.api_project_path({id: that.id})
+          dataType: 'json'
+          success: (data) ->
+            Vue.set(store.state, 'project', data)
+            $.ajax
+              url: Routes.api_project_users_path({project_id: store.state.project.id})
+              dataType: 'json'
+              success: (data) ->
+                Vue.set(store.state, 'users', data)
 
-    $.ajax
-      url: Routes.api_project_tickets_path({project_id: projectId()})
-      dataType: 'json'
-      success: (data) ->
-        Vue.set(store.state, 'tickets', data)
+            $.ajax
+              url: Routes.api_project_tickets_path({project_id: store.state.project.id})
+              dataType: 'json'
+              success: (data) ->
+                Vue.set(store.state, 'tickets', data)
 
     CommentRow = Vue.component 'comment-row',
       template: '#comment-row'
@@ -34,7 +48,7 @@ class Views.Projects.Show extends Views.ApplicationView
       methods:
         removeComment: ->
           $.ajax
-            url: Routes.api_project_ticket_comment_path({project_id: projectId(), ticket_id: this.comment.ticket_id, id: this.comment.id, _options: true})
+            url: Routes.api_project_ticket_comment_path({project_id: store.state.project.id, ticket_id: this.comment.ticket_id, id: this.comment.id, _options: true})
             dataType: 'json'
             method: 'DELETE'
 
@@ -60,13 +74,13 @@ class Views.Projects.Show extends Views.ApplicationView
       methods:
         removeTicket: ->
           $.ajax
-            url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            url: Routes.api_project_ticket_path({project_id: store.state.project.id, id: this.ticket.id, _options: true})
             dataType: 'json'
             method: 'DELETE'
         showEditForm: ->
           that = this
           $.ajax
-            url: Routes.edit_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            url: Routes.edit_project_ticket_path({project_id: store.state.project.id, id: this.ticket.id, _options: true})
             success: (data) ->
               $('#modal').html($(data))
               $('#modal').modal('open')
@@ -78,7 +92,7 @@ class Views.Projects.Show extends Views.ApplicationView
           , 500)
         startTicket: ->
           $.ajax
-            url: Routes.api_project_ticket_path({project_id: projectId(), id: this.ticket.id, _options: true})
+            url: Routes.api_project_ticket_path({project_id: store.state.project.id, id: this.ticket.id, _options: true})
             method: 'PATCH'
             data:
               ticket:
@@ -87,7 +101,7 @@ class Views.Projects.Show extends Views.ApplicationView
           that = this
           $.ajax
             method: 'POST'
-            url: Routes.api_project_ticket_comments_path({project_id: projectId(), ticket_id: this.ticket.id, _options: true})
+            url: Routes.api_project_ticket_comments_path({project_id: store.state.project.id, ticket_id: this.ticket.id, _options: true})
             dataType: 'json'
             data:
               comment: that.comment
@@ -102,25 +116,22 @@ class Views.Projects.Show extends Views.ApplicationView
       methods:
         showNewForm: ->
           $.ajax
-            url: Routes.new_project_ticket_path({project_id: projectId()})
+            url: Routes.new_project_ticket_path({project_id: store.state.project.id})
             success: (data) ->
               $('#modal').html($(data))
               $('#modal').modal('open')
               new Views.Tickets.New().render()
 
     new Vue
-      el: '#project'
-      data: store.state
-      computed:
-        id: ->
-          projectId()
-      created: ->
-        that = this
-        $.ajax
-          url: Routes.api_project_path({id: that.id})
-          dataType: 'json'
-          success: (data) ->
-            Vue.set(store.state, 'project', data)
+      el: '#manage-users'
+      methods:
+        showNewForm: ->
+          $.ajax
+            url: Routes.project_users_path({project_id: store.state.project.id})
+            success: (data) ->
+              $('#modal').html($(data))
+              $('#modal').modal('open')
+              new Views.Projects.Users.Edit().render()
 
     new Vue
       el: '#done-tickets'

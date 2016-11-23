@@ -1,0 +1,32 @@
+%script#user-chip{type: 'text/x-template'}
+  .chip
+    %img{':src': 'user.photo.assets.chip'}
+    {{ user.name }}
+    %template{'v-if': '!to_remove'}
+      %i.material-icons.close-without-listener{'@click': 'addToRemoveList'} close
+    %template{'v-if': 'to_remove'}
+      %i.material-icons.close-without-listener{'@click': 'removeFromRemoveList'} redo
+
+%script#user-row{type: 'text/x-template'}
+  %tr
+    %td {{ index + 1 }}
+    %td
+      %div{is: 'user-chip', ':user': 'user'}
+    %td
+
+
+#project-users-form
+  .modal-content
+    %p
+      %h6 {{ project.name }} - currently assigned users:
+      %p
+        %table.striped
+          %thead
+            %th #
+            %th User name
+            %th
+          %tbody
+            %tr{is: 'user-row', 'v-for': '(user, index) in assigned_users', ':user': :user, ':index': :index}
+
+  .modal-footer
+    %a.waves-effect.waves-green.btn-flat{'@click': 'submitProjectUsers'} Save

@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :tickets, controller: 'projects/tickets'
+    resources :users, controller: 'projects/users'
   end
 
   resources :sessions, only: [:new, :destroy]
@@ -13,7 +14,9 @@ Rails.application.routes.draw do
       resources :tickets, controller: 'projects/tickets' do
         resources :comments, controller: 'projects/tickets/comments'
       end
-      resources :users, only: [:index], controller: 'projects/users'
+      resources :users, only: [:index, :destroy], controller: 'projects/users' do
+        delete :destroy, on: :collection
+      end
     end
     resources :sessions, only: [:create]
     resource :user, only: [:show, :update]

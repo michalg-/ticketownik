@@ -10,7 +10,6 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
       that.perform 'unfollow'
 
   proceedConnect: (that) ->
-    console.log 'łączę'
     setTimeout =>
       that.followCurrentProject()
     , 1000
@@ -39,7 +38,6 @@ App.comments = App.cable.subscriptions.create 'CommentsChannel',
 
 
   followCurrentProject: ->
-    console.log 'paczam'
     if projectId = document.getElementById('project')
       @perform 'follow', project_id: projectId.getAttribute('project-id')
     else

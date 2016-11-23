@@ -13,10 +13,13 @@
   #waiting-tickets
     = render 'projects/tickets/index', tickets: 'ticketsStatusIcebox', label: 'Waiting'
 
-.fixed-action-btn.horizontal#add-ticket
+.fixed-action-btn.horizontal
   %a.btn-floating.btn-large.red
     %i.large.material-icons add
   %ul
-    %li
+    %li#manage-users
+      %a.btn-floating.orange{'@click': 'showNewForm'}
+        %i.material-icons group
+    %li#add-ticket
       %a.btn-floating.red{'@click': 'showNewForm'}
         %i.material-icons bug_report

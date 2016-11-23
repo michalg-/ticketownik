@@ -9,7 +9,6 @@ App.tickets = App.cable.subscriptions.create 'TicketsChannel',
       that.perform 'unfollow'
 
   proceedConnect: (that) ->
-    console.log 'łączę'
     setTimeout =>
       that.followCurrentProject()
     , 1000
@@ -26,7 +25,6 @@ App.tickets = App.cable.subscriptions.create 'TicketsChannel',
 
 
   followCurrentProject: ->
-    console.log 'paczam'
     if projectId = document.getElementById('project')
       @perform 'follow', project_id: projectId.getAttribute('project-id')
     else

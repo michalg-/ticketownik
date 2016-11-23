@@ -14,5 +14,4 @@ App.notifications = App.cable.subscriptions.create 'UserNotificationsChannel',
     , 1000
 
   received: (data) ->
-    console.log data
     Materialize.toast(data, 2000)
